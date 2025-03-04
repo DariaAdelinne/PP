@@ -28,6 +28,11 @@ public class Main
         return text.toLowerCase();
     }
 
+    public static String elimina_sp(String text)
+    {
+        return text.replaceAll("\\s+"," ").trim();
+    }
+
     public static void main(String[] args)
     {
         try
@@ -39,6 +44,8 @@ public class Main
             System.out.println("Continutul dupa eliminarea semnelor de punctuatie:\n"+continut);
             continut=lowerCase(continut);
             System.out.println("Continutul dupa transformarea caracterelor mari in caractere mici:\n"+continut);
+            continut=elimina_sp(continut);
+            System.out.println("Continutul dupa eliminarea spatiilor multiple:\n"+continut);
         }
         catch(IOException e)
         {
