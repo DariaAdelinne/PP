@@ -1,0 +1,1 @@
+Acesta este un fisier ASCII simplu. Nu are caractere speciale, doar caractere ASCII.
