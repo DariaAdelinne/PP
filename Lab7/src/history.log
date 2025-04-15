@@ -1,0 +1,11 @@
+Start-Date: 2024-04-01 12:30:45
+Commandline: sudo apt install python3
+Requested-By: user (1000)
+Install: python3
+End-Date: 2024-04-01 12:30:47
+
+Start-Date: 2024-04-02 08:15:30
+Commandline: sudo apt update
+Requested-By: user (1000)
+Upgrade: apt
+End-Date: 2024-04-02 08:15:32
