@@ -12,7 +12,7 @@ class Handler:
         #daca nu putem procesa, delegam urmatorului handler
         if self._successor:
             return self._successor.handle(content, filepath)
-        #daca am ajuns la final si nimeni nu stie sa proceseze, ridicam eroare
+        #daca am ajuns la final ridicam eroare
         raise ValueError("Unknown file type; cannot execute.")
 
 class PythonHandler(Handler):
