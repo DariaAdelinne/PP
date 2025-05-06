@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+echo "Starting Bash script..."
+for i in {1..5}; do
+  echo "Count: $i"
+done
+echo "Done."
