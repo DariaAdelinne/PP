@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod 
 
-class Observer(ABC):  
+class Observer(ABC):  #serveste ca baza pentru toate clasele
     @abstractmethod
     def update(self, *args, **kwargs):  #metoda apelata la notificare
         pass
 
-class Observable:
+class Observable:    #mentine o lista de observatori
     def __init__(self):
         self._observers = []  #lista de observatori 
 
