@@ -1,14 +1,12 @@
 import kotlinx.coroutines.*
 import kotlin.random.Random
 
-// -------- Handler interface și implementare lanț dublu --------
 interface Handler {
     var next: Handler?    // urmatorul in lant (forward)
     var prev: Handler?    // anteriorul in lant (backward)
     suspend fun handleRequest(message: String)
 }
 
-// -------- Factory Abstract și producător --------
 abstract class AbstractFactory {
     abstract fun getHandler(handler: String): Handler
 }
@@ -22,7 +20,6 @@ object FactoryProducer {
         }
 }
 
-// -------- Fabrica pentru Elite (CEO, Executive, Manager) --------
 class EliteFactory : AbstractFactory() {
     override fun getHandler(handler: String): Handler = when(handler) {
         "CEO" -> CEOHandler()
@@ -32,7 +29,6 @@ class EliteFactory : AbstractFactory() {
     }
 }
 
-// -------- Fabrica pentru HappyWorker --------
 class HappyWorkerFactory : AbstractFactory() {
     override fun getHandler(handler: String): Handler = when(handler) {
         "HAPPYWORKER" -> HappyWorkerHandler()
@@ -40,18 +36,15 @@ class HappyWorkerFactory : AbstractFactory() {
     }
 }
 
-// -------- Parsare mesaj Request: Priority:Mesaj --------
 fun parseRequest(msg: String): Pair<Int, String>? {
     if (!msg.startsWith("Request-")) return null
     val body = msg.removePrefix("Request-")
-    val sep = body.indexOf(':')
-    if (sep < 1) return null
-    val pr = body.substring(0, sep).toIntOrNull() ?: return null
+    val sep = body.indexOf(':') //gaseste separatorul
+    if (sep < 1) return null //daca e pe pozitia 0 e invalid
+    val pr = body.substring(0, sep).toIntOrNull() ?: return null //primele caractere pana la sep ar trebui sa fie numar
     val text = body.substring(sep + 1)
     return pr to text
 }
-
-// -------- Implementari concrete Handler --------
 
 abstract class BaseHandler(val name: String, val priority: Int) : Handler {
     override var next: Handler? = null
@@ -101,7 +94,6 @@ class ExecutiveHandler: BaseHandler("Executive", 2)
 class ManagerHandler: BaseHandler("Manager", 3)
 class HappyWorkerHandler: BaseHandler("HappyWorker", 4)
 
-// -------- Demonstrare --------
 fun main() = runBlocking<Unit> {
     // obtinem fabrici
     val eliteFactory = FactoryProducer.getFactory("ELITE")
