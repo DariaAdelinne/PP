@@ -1,0 +1,3 @@
+Acesta e un fisier text simplu,
+folosit doar pentru a testa
+procesarea generica a continutului.
