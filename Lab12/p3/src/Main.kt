@@ -25,7 +25,7 @@ fun main() {
         .map { (x, y) -> x to y } //creeaza perechi
 
     val sumAdj = points // suma distantelor intre perechi consecutive
-        .zipWithNext { (x1,y1), (x2,y2) ->
+        .zipWithNext { (x1,y1), (x2,y2) -> //creeaza perechi intre puncte consecutive
             hypot(x2 - x1, y2 - y1)
         }
         .sum()
