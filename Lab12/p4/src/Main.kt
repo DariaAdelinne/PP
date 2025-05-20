@@ -1,47 +1,34 @@
-// 1) Definim o extensie pentru String care transformă un text în PascalCase
-fun String.toPascalCase(): String =
-    split("\\s+".toRegex())
-        .joinToString("") { word ->
-            word.lowercase()
-                .replaceFirstChar { it.uppercaseChar() }
+fun String.toPascalCase(): String = //format PascalCase
+    split("\\s+".toRegex()) //despare in cuvinte, pe baza spatiilor
+        .joinToString("") { word -> //reuneste cuvintele cu un singur spatiu
+            word.lowercase() //transformam in litere mici
+                .replaceFirstChar { it.uppercaseChar() } //prima o facem mare
         }
 
-// 2) Functor pentru MutableMap<K,V>, care permite să „mapăm” valorile
-class MutableMapFunctor<K, V>(
-    private val backing: MutableMap<K, V>
-) {
-    /**
-     * Aplică transform(value) pe fiecare valoare din hartă,
-     * returnând un nou MutableMapFunctor cu rezultatul.
-     */
-    fun map(transform: (V) -> V): MutableMapFunctor<K, V> {
-        val result = mutableMapOf<K, V>()
+class MutableMapFunctor<K, V>(private val backing: MutableMap<K, V>) { //clasa gennerica ce actioneaza ca un functor 
+    fun map(transform: (V) -> V): MutableMapFunctor<K, V> { //transforma o valoare intr o noua valoare
+        val result = mutableMapOf<K, V>() //harta temporara ce stocheaza rezultatele
         for ((key, value) in backing) {
-            result[key] = transform(value)
+            result[key] = transform(value) //aplicam functia pe fiecare valoare
         }
         return MutableMapFunctor(result)
     }
 
-    /** Returnează harta rezultată după toate map-urile. */
-    fun value(): MutableMap<K, V> = backing
+    fun value(): MutableMap<K, V> = backing //returneaza harta finala continuta de acest functor
 }
 
-// 3) Testăm funcționalitatea
 fun main() {
-    // inițial un MutableMap<Int, String>
-    val data = mutableMapOf(
+    val data = mutableMapOf( //perechi int/string
         1 to "hello world",
         2 to "kotlin functor example",
         3 to "functional programming",
         4 to "zip and map"
     )
 
-    // Construim functorul, aplicăm două map-uri și luăm harta finală
-    val finalMap = MutableMapFunctor(data)
-        .map { "Test$it" }       // 1. adaugă prefixul "Test"
-        .map { it.toPascalCase() } // 2. transformă în PascalCase
-        .value()
+    val finalMap = MutableMapFunctor(data) //constrium functorul
+        .map { "Test$it" }    
+        .map { it.toPascalCase() } 
+        .value() //extrage harta finala
 
-    // Afișăm rezultatul
     println(finalMap)
 }
