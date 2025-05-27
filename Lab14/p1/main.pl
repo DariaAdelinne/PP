@@ -1,6 +1,3 @@
-% Extended family relations model
-
-% Facts
 % tatal( Father, Child ).
 tatal(ilie, vasale).
 tatal(popa, vasale).
@@ -74,11 +71,23 @@ ruda(X, Y) :- frate(X, Y); sora(X, Y);
               nepot(X, Y); nepoata(X, Y);
               verisor(X, Y).
 
-% Sample queries:
-% ?- matusa(Aunt, vasale).
-% ?- bunicul(Grandfather, dana).
-% ?- sora(Sister, george).
-% ?- nepot(Nephew, popa).
-% ?- nepoata(Niece, ilie).
-% ?- verisor(Cousin, cobelea).
-% ?- ruda(Relation, elena).
+1. ce pereche de membri auo mătusă? niciuna
+2. ce pereche de membri auun bunic? 
+  Grandfather = george, Grandchild = vasale ;
+  Grandfather = george, Grandchild = elena ;
+  Grandfather = george, Grandchild = cobelea ;
+  Grandfather = george, Grandchild = diana ;
+  Grandfather = petru,  Grandchild = vasale ;
+  Grandfather = petru,  Grandchild = elena ;
+  Grandfather = petru,  Grandchild = pavel ;
+3. Cine este sora lui George? nu exista
+4. Cine sunt unchii lui Ilie?
+  X = popa ;
+  X = dana.
+5. Cine sunt verișorii Elenei?
+  X = vasale.
+6. Cine sunt nepoții (grandchildren) lui George?
+  X = vasale ;
+  X = elena  ;
+  X = cobelea ;
+  X = diana  ;
